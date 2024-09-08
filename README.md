@@ -1,6 +1,6 @@
 # Food Vision 101 🍕🍔🍟
 
-**Food Vision 101** is a deep learning-powered web application that classifies food images into various categories using a pre-trained TensorFlow model. This project combines Flask for the web interface and TensorFlow for the image classification model.
+**Food Vision 101** is a deep learning-powered web application that classifies food images into various categories using a TensorFlow model with **80% accuracy**. This project combines Flask for the web interface and TensorFlow for the image classification model.
 
 ## Table of Contents
 - [Features](#features)
