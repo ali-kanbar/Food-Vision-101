@@ -5,9 +5,6 @@ from PIL import Image
 import io
 from helper_functions import class_names
 
-import os
-os.environ["CUDA_VISIBLE_DEVICES"] = "-1" 
-
 app = Flask(__name__)
 model = keras.models.load_model("07_efficientnetb0_feature_extract_model_mixed_precision")
 
