@@ -32,6 +32,8 @@ To get this project running locally, follow the steps below.
 - Python 3.x
 - `pip` (Python package installer)
 - Git (to clone the repository)
+- Flask
+- Tensorflow
 
 ### Clone the Repository
 ```bash
