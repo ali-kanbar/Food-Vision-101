@@ -5,8 +5,6 @@ from PIL import Image
 import io
 from helper_functions import class_names
 
-tf.config.set_visible_devices([], 'GPU')
-
 app = Flask(__name__)
 
 model = keras.models.load_model("model")
