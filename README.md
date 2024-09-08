@@ -17,7 +17,7 @@
 ## Features
 - **Food Image Classification**: Upload a food image, and the app will classify it into one of the predefined categories.
 - **User-Friendly Interface**: Simple web interface built with Flask for ease of use.
-- **TensorFlow Integration**: Pre-trained model loaded and served using TensorFlow.
+- **TensorFlow Integration**: Pre-trained model loaded and served using TensorFlow(the steps for creating the model are in the .ipynb file).
 - **Scalable**: Ready for deployment on cloud platforms like Render.
 
 ## Demo
@@ -77,35 +77,19 @@ The model used in this project is a pre-trained deep learning model from TensorF
 ## Project Structure
 ```plaintext
 Food-Vision-101/
-├── app.py                # Main Flask application
-├── model/                # Directory for the pre-trained model files
-├── static/               # Static assets (CSS, JS, images)
-├── templates/            # HTML templates for the web interface
-├── requirements.txt      # Python dependencies
-├── Procfile              # For deployment on platforms like Heroku/Render
-├── README.md             # Project documentation (this file)
-└── .env (optional)       # Environment variables
-```
-
-## Deployment
-
-To deploy this application to a cloud platform like **Render**, follow these steps:
-
-1. Ensure that your `Procfile` and `requirements.txt` are set up correctly.
-2. Deploy using Render’s guide for Flask applications or follow similar deployment procedures for Heroku or AWS.
-3. Set up necessary environment variables for production.
-
-### Deployment Commands
-For example, on Render:
-
-```bash
-git push render master
+├── app.py                  # Main Flask application
+├── model/                  # Directory for the pre-trained model files
+├── static/                 # Static assets (CSS)
+├── templates/              # HTML templates for the web interface
+├── food_vision_model.ipynb # The jupyter notebook where the model bass created and trained
+├── helper_functions.py     # Used functions in the code 
+├── requirements.txt        # Python dependencies
+├── README.md               # Project documentation (this file)
 ```
 
 ## Technologies Used
 - **Flask**: Python-based web framework
 - **TensorFlow**: Deep learning framework for the image classification model
-- **Gunicorn**: WSGI HTTP server for Python web applications (for deployment)
 - **HTML/CSS**: Front-end design
 
 ## Contributing
@@ -123,11 +107,3 @@ Contributions are welcome! If you’d like to contribute to this project:
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ---
-
-### How to Use This README:
-1. Copy the content.
-2. Create a new file named `README.md` in the root directory of your repository.
-3. Paste the content and adjust any specific details if necessary (e.g., the live demo link).
-4. Commit the `README.md` file to your repository.
-
-Let me know if you'd like any additional sections or modifications!
