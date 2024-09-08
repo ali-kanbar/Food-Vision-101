@@ -1,0 +1,105 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 100%;
+    max-width: 450px;
+}
+
+h1 {
+    color: #0056b3;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.upload-section h2 {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+input[type="file"] {
+    padding: 10px;
+    width: 100%;
+    border: 2px solid #0056b3;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+button {
+    background-color: #0056b3;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+#image-preview {
+    display: none;
+    margin-top: 20px;
+    max-width: 100%;
+    border-radius: 8px;
+    border: 2px solid #ddd;
+}
+
+.prediction {
+    margin-top: 20px;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.prediction h3 {
+    font-weight: bold;
+    color: #0056b3;
+}
+
+.class-names {
+    margin-top: 30px;
+    text-align: left;
+    max-height: 200px;
+    overflow-y: scroll;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.class-names h3 {
+    color: #0056b3;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.class-names ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.class-names ul li {
+    margin-bottom: 5px;
+    color: #333;
+}

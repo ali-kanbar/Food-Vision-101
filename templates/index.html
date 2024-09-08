@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Food Vision Model</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Food Vision Model</h1>
+        </header>
+
+        <main>
+            <div class="upload-section">
+                <h2>Upload a Food Image</h2>
+                <form id="upload-form" action="/predict" method="POST" enctype="multipart/form-data">
+                    <input type="file" id="file-input" name="file" accept="image/*" required><br>
+                    <button type="submit">Predict</button>
+                </form>
+                <img id="image-preview" alt="Image Preview">
+            </div>
+
+            <div class="class-names">
+                <h3>Types of food that the model predicts</h3>
+                <ul>
+                    {% for class_name in class_names %}
+                        <li>{{ class_name }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            {% if prediction %}
+            <div class="prediction">
+                <h3>Prediction: {{ prediction }}</h3>
+                <h3>Probability : {{ probability }}</h3>
+            </div>
+            {% endif %}
+        </main>
+    </div>
+    <script>
+        if (performance.navigation.type === 1) {
+            window.location.href = "/home";
+        }
+    </script>
+</body>
+</html>

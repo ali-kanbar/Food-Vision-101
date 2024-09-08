@@ -1,19 +1,114 @@
-### We create a bunch of helpful functions throughout the course.
-### Storing them here so they're easily accessible.
-
 import tensorflow as tf
 import tf_keras as keras
-
-
-# Note: The following confusion matrix code is a remix of Scikit-Learn's 
-# plot_confusion_matrix function - https://scikit-learn.org/stable/modules/generated/sklearn.metrics.plot_confusion_matrix.html
 import itertools
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.metrics import confusion_matrix
+import datetime
+import os
 
+class_names = ['apple_pie',
+ 'baby_back_ribs',
+ 'baklava',
+ 'beef_carpaccio',
+ 'beef_tartare',
+ 'beet_salad',
+ 'beignets',
+ 'bibimbap',
+ 'bread_pudding',
+ 'breakfast_burrito',
+ 'bruschetta',
+ 'caesar_salad',
+ 'cannoli',
+ 'caprese_salad',
+ 'carrot_cake',
+ 'ceviche',
+ 'cheese_plate',
+ 'cheesecake',
+ 'chicken_curry',
+ 'chicken_quesadilla',
+ 'chicken_wings',
+ 'chocolate_cake',
+ 'chocolate_mousse',
+ 'churros',
+ 'clam_chowder',
+ 'club_sandwich',
+ 'crab_cakes',
+ 'creme_brulee',
+ 'croque_madame',
+ 'cup_cakes',
+ 'deviled_eggs',
+ 'donuts',
+ 'dumplings',
+ 'edamame',
+ 'eggs_benedict',
+ 'escargots',
+ 'falafel',
+ 'filet_mignon',
+ 'fish_and_chips',
+ 'foie_gras',
+ 'french_fries',
+ 'french_onion_soup',
+ 'french_toast',
+ 'fried_calamari',
+ 'fried_rice',
+ 'frozen_yogurt',
+ 'garlic_bread',
+ 'gnocchi',
+ 'greek_salad',
+ 'grilled_cheese_sandwich',
+ 'grilled_salmon',
+ 'guacamole',
+ 'gyoza',
+ 'hamburger',
+ 'hot_and_sour_soup',
+ 'hot_dog',
+ 'huevos_rancheros',
+ 'hummus',
+ 'ice_cream',
+ 'lasagna',
+ 'lobster_bisque',
+ 'lobster_roll_sandwich',
+ 'macaroni_and_cheese',
+ 'macarons',
+ 'miso_soup',
+ 'mussels',
+ 'nachos',
+ 'omelette',
+ 'onion_rings',
+ 'oysters',
+ 'pad_thai',
+ 'paella',
+ 'pancakes',
+ 'panna_cotta',
+ 'peking_duck',
+ 'pho',
+ 'pizza',
+ 'pork_chop',
+ 'poutine',
+ 'prime_rib',
+ 'pulled_pork_sandwich',
+ 'ramen',
+ 'ravioli',
+ 'red_velvet_cake',
+ 'risotto',
+ 'samosa',
+ 'sashimi',
+ 'scallops',
+ 'seaweed_salad',
+ 'shrimp_and_grits',
+ 'spaghetti_bolognese',
+ 'spaghetti_carbonara',
+ 'spring_rolls',
+ 'steak',
+ 'strawberry_shortcake',
+ 'sushi',
+ 'tacos',
+ 'takoyaki',
+ 'tiramisu',
+ 'tuna_tartare',
+ 'waffles']
 
-# Our function needs a different name to sklearn's plot_confusion_matrix
 def make_confusion_matrix(y_true, y_pred, classes=None, figsize=(10, 10), text_size=15, norm=False, savefig=False): 
   """Makes a labelled confusion matrix comparing predictions and ground truth labels.
 
@@ -39,39 +134,32 @@ def make_confusion_matrix(y_true, y_pred, classes=None, figsize=(10, 10), text_s
                           figsize=(15, 15),
                           text_size=10)
   """  
-  # Create the confustion matrix
   cm = confusion_matrix(y_true, y_pred)
-  cm_norm = cm.astype("float") / cm.sum(axis=1)[:, np.newaxis] # normalize it
-  n_classes = cm.shape[0] # find the number of classes we're dealing with
+  cm_norm = cm.astype("float") / cm.sum(axis=1)[:, np.newaxis]
+  n_classes = cm.shape[0]
 
-  # Plot the figure and make it pretty
   fig, ax = plt.subplots(figsize=figsize)
-  cax = ax.matshow(cm, cmap=plt.cm.Blues) # colors will represent how 'correct' a class is, darker == better
+  cax = ax.matshow(cm, cmap=plt.cm.Blues) 
   fig.colorbar(cax)
 
-  # Are there a list of classes?
   if classes:
     labels = classes
   else:
     labels = np.arange(cm.shape[0])
   
-  # Label the axes
   ax.set(title="Confusion Matrix",
          xlabel="Predicted label",
          ylabel="True label",
-         xticks=np.arange(n_classes), # create enough axis slots for each class
+         xticks=np.arange(n_classes), 
          yticks=np.arange(n_classes), 
-         xticklabels=labels, # axes will labeled with class names (if they exist) or ints
+         xticklabels=labels, 
          yticklabels=labels)
   
-  # Make x-axis labels appear on bottom
   ax.xaxis.set_label_position("bottom")
   ax.xaxis.tick_bottom()
 
-  # Set the threshold for different colors
   threshold = (cm.max() + cm.min()) / 2.
 
-  # Plot the text on each cell
   for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
     if norm:
       plt.text(j, i, f"{cm[i, j]} ({cm_norm[i, j]*100:.1f}%)",
@@ -84,12 +172,9 @@ def make_confusion_matrix(y_true, y_pred, classes=None, figsize=(10, 10), text_s
               color="white" if cm[i, j] > threshold else "black",
               size=text_size)
 
-  # Save the figure to the current working directory
   if savefig:
     fig.savefig("confusion_matrix.png")
   
-  
-
 def create_tensorboard_callback(dir_name, experiment_name):
   """
   Creates a TensorBoard callback instance to store log files.
@@ -108,27 +193,6 @@ def create_tensorboard_callback(dir_name, experiment_name):
   print(f"Saving TensorBoard log files to: {log_dir}")
   return tensorboard_callback
 
-# Plot the validation and training data separately
-import matplotlib.pyplot as plt
-
-# Create function to unzip a zipfile into current working directory 
-# (since we're going to be downloading and unzipping a few files)
-import zipfile
-
-def unzip_data(filename):
-  """
-  Unzips filename into the current working directory.
-
-  Args:
-    filename (str): a filepath to a target zip folder to be unzipped.
-  """
-  zip_ref = zipfile.ZipFile(filename, "r")
-  zip_ref.extractall()
-  zip_ref.close()
-
-# Walk through an image classification directory and find out how many files (images)
-# are in each subdirectory.
-import os
 
 def walk_through_dir(dir_path):
   """
@@ -146,36 +210,15 @@ def walk_through_dir(dir_path):
   for dirpath, dirnames, filenames in os.walk(dir_path):
     print(f"There are {len(dirnames)} directories and {len(filenames)} images in '{dirpath}'.")
     
-# Function to evaluate: accuracy, precision, recall, f1-score
-from sklearn.metrics import accuracy_score, precision_recall_fscore_support
-
-def calculate_results(y_true, y_pred):
-  """
-  Calculates model accuracy, precision, recall and f1 score of a binary classification model.
-
-  Args:
-      y_true: true labels in the form of a 1D array
-      y_pred: predicted labels in the form of a 1D array
-
-  Returns a dictionary of accuracy, precision, recall, f1-score.
-  """
-  # Calculate model accuracy
-  model_accuracy = accuracy_score(y_true, y_pred) * 100
-  # Calculate model precision, recall and f1 score using "weighted average
-  model_precision, model_recall, model_f1, _ = precision_recall_fscore_support(y_true, y_pred, average="weighted")
-  model_results = {"accuracy": model_accuracy,
-                  "precision": model_precision,
-                  "recall": model_recall,
-                  "f1": model_f1}
-  return model_results
-
+    
 def preprocess_img(image, label, img_shape=224):
     """
     Converts image datatype from 'uint8' -> 'float32' and reshapes image to
     [img_shape, img_shape, color_channels]
     """
-    image = tf.image.resize(image, [img_shape, img_shape]) # reshape to img_shape
-    return tf.cast(image, tf.float32), label # return (float32_image, label) tuple
+    image = tf.image.resize(image, [img_shape, img_shape])
+    return tf.cast(image, tf.float32), label
+  
   
 def autolabel(rects,ax):
   """
