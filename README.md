@@ -7,7 +7,6 @@
 - [Demo](#demo)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Model](#model)
 - [Project Structure](#project-structure)
 - [Deployment](#deployment)
 - [Technologies Used](#technologies-used)
@@ -65,12 +64,8 @@ Visit `http://127.0.0.1:5000/` in your web browser to interact with the app.
 ## Usage
 
 1. Open the web application.
-2. Upload an image of food.
+2. Upload an image of foods types that are scpecified in the web page .
 3. Wait for the classification result to be displayed, showing the predicted food category.
-
-## Model
-
-The model used in this project is a pre-trained deep learning model from TensorFlow, specifically designed for image classification. It has been fine-tuned to classify different types of food with high accuracy.
 
 ### Steps to Update the Model
 1. Train or fine-tune a model using a food image dataset.
@@ -94,6 +89,7 @@ Food-Vision-101/
 - **Flask**: Python-based web framework
 - **TensorFlow**: Deep learning framework for the image classification model
 - **HTML/CSS**: Front-end design
+- **Jinja2**: A templating engine for Python used with Flask to render dynamic web pages.
 
 ## Contributing
 
